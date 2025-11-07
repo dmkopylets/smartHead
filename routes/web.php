@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FeedbackWidgetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,3 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/', 'welcome')->name('home');
+Route::get('/feedback-widget', [FeedbackWidgetController::class, 'index'])
+    ->name('feedback.widget');
