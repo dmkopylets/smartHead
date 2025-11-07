@@ -14,8 +14,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(AdminSeeder::class);
-        $this->call(UserSeeder::class);
-        //        Ticket::factory(50)->create();
+//        $this->call(AdminSeeder::class);
+//        $this->call(UserSeeder::class);
+        $this->call(CustomerSeeder::class);
+        $this->call(TicketSeeder::class);
     }
 }
