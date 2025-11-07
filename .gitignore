@@ -29,3 +29,4 @@ Thumbs.db
 .editorconfig
 Makefile
 docker-compose.yml
+.php-cs-fixer.cache
