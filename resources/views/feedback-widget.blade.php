@@ -71,42 +71,74 @@
 </div>
 
 <script>
-    document.querySelector('#feedbackForm').addEventListener('submit', async function (e) {
-        e.preventDefault();
-        const form = e.target;
-        const resultDiv = document.getElementById('formResult');
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('#feedbackForm');
 
-        const formData = new FormData(form);
-        const response = await fetch(form.action, {
-            method: 'POST',
-            body: formData,
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-            form.reset();
-            resultDiv.innerHTML = `
-            <div class="bg-green-100 text-green-700 p-3 rounded-lg mt-3">
-                Your ticket has been successfully submitted!
-            </div>
-        `;
-        } else {
-            let errors = '';
-            if (data.errors) {
-                for (const field in data.errors) {
-                    errors += `<li>${data.errors[field].join(', ')}</li>`;
-                }
-            } else {
-                errors = `<li>${data.message || 'An error has occurred'}</li>`;
-            }
-
-            resultDiv.innerHTML = `
-            <div class="bg-red-100 text-red-700 p-3 rounded-lg mt-3">
-                <ul class="list-disc pl-5 text-left">${errors}</ul>
-            </div>
-        `;
+        if (!form) {
+            console.error("Form element with ID 'feedbackForm' not found.");
+            return;
         }
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const resultDiv = document.getElementById('formResult');
+            resultDiv.innerHTML = '';
+
+            const formData = new FormData(form);
+            const dataObject = Object.fromEntries(formData.entries());
+
+            const csrfToken = dataObject._token;
+            delete dataObject._token;
+
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    body: JSON.stringify(dataObject),
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    form.reset();
+                    resultDiv.innerHTML = `
+                    <div class="bg-green-100 text-green-700 p-3 rounded-lg mt-3">
+                        Your application has been successfully submitted! (ID: ${data.data.ticket_id})
+                    </div>
+                    `;
+                } else if (response.status === 422 && data.errors) {
+                    let errors = '';
+                    for (const field in data.errors) {
+                        errors += `<li>${data.errors[field].join(', ')}</li>`;
+                    }
+
+                    resultDiv.innerHTML = `
+                    <div class="bg-red-100 text-red-700 p-3 rounded-lg mt-3">
+                        <p class="font-bold mb-1">Validation error:</p>
+                        <ul class="list-disc pl-5 text-left">${errors}</ul>
+                    </div>
+                    `;
+                } else {
+                    const message = data.message || 'An unknown error occurred on the server.';
+                    resultDiv.innerHTML = `
+                     <div class="bg-red-100 text-red-700 p-3 rounded-lg mt-3">
+                         Error: ${message} (Status: ${response.status})
+                     </div>
+                     `;
+                }
+            } catch (error) {
+                console.error('Fetch error or JSON parsing failed:', error);
+                resultDiv.innerHTML = `
+                    <div class="bg-red-100 text-red-700 p-3 rounded-lg mt-3">
+                        Critical error. Unable to connect to the server.
+                    </div>
+                `;
+            }
+        });
     });
 </script>
 
