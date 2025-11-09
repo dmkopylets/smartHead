@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Feedback form</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://cdn.tailwindcss.com"></script>
+    @vite(['resources/css/app.css'])
 </head>
 <body class="bg-gray-50 min-h-screen flex items-center justify-center">
 
