@@ -16,8 +16,9 @@
         <!-- Fonts -->
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <tallstackui:script />
         @livewireStyles
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireScripts
 
         <!-- CSRF Token -->
@@ -25,6 +26,7 @@
     </head>
 
     <body>
+        <x-ts-toast />
         @yield('body')
     </body>
 </html>

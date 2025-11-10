@@ -10,12 +10,14 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "blade-ui-kit/blade-heroicons": "^2.6",
         "laravel-frontend-presets/tall": "^9.1",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
         "livewire/livewire": "^3.6",
         "spatie/laravel-medialibrary": "^11.17",
-        "spatie/laravel-permission": "^6.21"
+        "spatie/laravel-permission": "^6.21",
+        "tallstackui/tallstackui": "^2.0.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.15",
