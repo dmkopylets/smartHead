@@ -15,18 +15,18 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-
+        <tallstackui:style />
         <tallstackui:script />
         @livewireStyles
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-        @livewireScripts
+
 
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
 
     <body>
-        <x-ts-toast />
         @yield('body')
+        @livewireScripts
     </body>
 </html>

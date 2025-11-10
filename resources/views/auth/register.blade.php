@@ -1,28 +1,35 @@
-<?php
-<x-layout>
-    <div class="max-w-md mx-auto mt-10 bg-white shadow-md rounded-lg p-6">
-        <h2 class="text-2xl font-semibold mb-4 text-center">Реєстрація</h2>
-        <form method="POST" action="{{ route('register') }}">
-@csrf
+<x-guest-layout>
+    <div class="my-6 flex items-center justify-center">
+        <img src="{{ asset('/assets/images/tsui.png') }}" />
+    </div>
 
-<x-input label="Ім’я" name="name" value="{{ old('name') }}" required autofocus />
-<x-input label="Email" name="email" type="email" value="{{ old('email') }}" required />
-<x-input label="Пароль" name="password" type="password" required />
-<x-input label="Підтвердження пароля" name="password_confirmation" type="password" required />
+    <form method="POST" action="{{ route('register') }}">
+        @csrf
 
-<x-button class="w-full mt-4">
-    <x-heroicon-o-user-plus class="w-4 h-4 mr-2" />
-    Зареєструватися
-</x-button>
+        <div>
+            <x-input label="Name *" name="name" :value="old('name')" required autofocus autocomplete="name" />
+        </div>
 
-@error('email')
-<p class="text-red-600 text-sm mt-2">{{ $message }}</p>
-@enderror
-</form>
+        <div class="mt-4">
+            <x-input label="Email *" type="email" name="email" :value="old('email')" required autocomplete="username" />
+        </div>
 
-<p class="text-center mt-4 text-sm">
-    Вже маєш акаунт?
-    <a href="{{ route('login') }}" class="text-blue-600 hover:underline">Увійти</a>
-</p>
-</div>
-</x-layout>
+        <div class="mt-4">
+            <x-password label="Password *" name="password" required autocomplete="new-password" />
+        </div>
+
+        <div class="mt-4">
+            <x-password label="Confirm Password *" name="password_confirmation" required autocomplete="new-password" />
+        </div>
+
+        <div class="flex items-center justify-end mt-4">
+            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md" href="{{ route('login') }}">
+                {{ __('Already registered?') }}
+            </a>
+
+            <x-button type="submit" class="ms-4">
+                {{ __('Register') }}
+            </x-button>
+        </div>
+    </form>
+</x-guest-layout>
