@@ -19,4 +19,14 @@ class Customer extends Model
     {
         return $this->hasMany(Ticket::class);
     }
+
+    public static function asOptions()
+    {
+        $options = ['' => 'not set'];
+        $items = self::orderBy('name', 'asc')->get()->pluck('name', 'id');
+        foreach ($items as $id => $name) {
+            $options[$id] = $name;
+        }
+        return $options;
+    }
 }

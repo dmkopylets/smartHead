@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Manager\TicketsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FeedbackWidgetController;
 use App\Http\Controllers\Auth\LoginController;
@@ -20,5 +21,8 @@ Route::middleware(['auth', 'role:manager'])
     ->name('manager.')
     ->group(function () {
         Route::get('/', fn () => view('dashboard.manager.index'))->name('dashboard');
-        Route::get('/tickets', fn () => view('dashboard.manager.tickets'))->name('tickets');
+
+        Route::get('/tickets', [TicketsController::class, 'index'])
+                ->name('tickets');
+
     });
