@@ -20,5 +20,5 @@ Route::middleware(['auth', 'role:manager'])
     ->name('manager.')
     ->group(function () {
         Route::get('/', fn () => view('dashboard.manager.index'))->name('dashboard');
-        Route::get('/users', fn () => view('dashboard.manager.users'))->name('users');
+        Route::get('/tickets', fn () => view('dashboard.manager.tickets'))->name('tickets');
     });

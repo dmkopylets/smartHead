@@ -72,7 +72,9 @@
     {{-- Main content --}}
     @yield('content')
 </x-ts-layout>
-
+@if (session('error'))
+    <x-ts-toast :message="session('error')" type="error" />
+@endif
 @livewireScripts
 </body>
 </html>

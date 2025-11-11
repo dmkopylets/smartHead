@@ -26,7 +26,7 @@
                 <x-ts-checkbox name="remember" label="Remember me" />
                 <x-ts-button
                         type="submit"
-                        icon="arrow-right-on-rectangle"
+                        icon="arrow-left-end-on-rectangle"
                         color="primary"
                         label="Log in"
                 />
