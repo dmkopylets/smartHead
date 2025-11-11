@@ -15,6 +15,10 @@ Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('
 Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::middleware('auth')->get('/manager', function () {
-    return view('dashboard.manager.index');
-})->name('manager.dashboard');
+Route::middleware(['auth', 'role:manager'])
+    ->prefix('manager')
+    ->name('manager.')
+    ->group(function () {
+        Route::get('/', fn () => view('dashboard.manager.index'))->name('dashboard');
+        Route::get('/users', fn () => view('dashboard.manager.users'))->name('users');
+    });
