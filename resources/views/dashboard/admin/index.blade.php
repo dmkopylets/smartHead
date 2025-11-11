@@ -2,7 +2,7 @@
     <x-card header="Welcome to the TallStackUI Starter Kit">
         <div class="space-y-2">
             <p>
-                👋🏻 This is the TallStackUI starter kit for Laravel 12. With this TallStackUI starter kit you will be able to enjoy a ready-to-use application to initialize your next Laravel 12 project with TallStackUI.
+                This is the TallStackUI starter kit for Laravel 12. With this TallStackUI starter kit you will be able to enjoy a ready-to-use application to initialize your next Laravel 12 project with TallStackUI.
             </p>
             <div class="mt-4 space-y-2">
                 <i>

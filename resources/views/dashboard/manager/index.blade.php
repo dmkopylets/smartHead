@@ -7,7 +7,11 @@
 
         <form method="POST" action="{{ route('logout') }}" class="mt-6">
             @csrf
-            <x-ts-button color="danger" icon="logout" label="Logout" type="submit" />
+            <x-ts-button
+                color="danger"
+                icon="arrow-right-on-rectangle"
+                label="Logout"
+                type="submit" />
         </form>
     </div>
 @endsection
