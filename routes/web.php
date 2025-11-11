@@ -22,7 +22,5 @@ Route::middleware(['auth', 'role:manager'])
     ->group(function () {
         Route::get('/', fn () => view('dashboard.manager.index'))->name('dashboard');
 
-        Route::get('/tickets', [TicketsController::class, 'index'])
-                ->name('tickets');
-
+        Route::resource('tickets', TicketsController::class);
     });

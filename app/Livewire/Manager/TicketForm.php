@@ -41,7 +41,7 @@ class TicketForm extends Component
             $this->status = $ticket->status;
         } else {
             $this->reset(['ticketId', 'customer_id', 'subject', 'message', 'status']);
-            $this->status = 'новий';
+            $this->status = 'new';
         }
     }
 

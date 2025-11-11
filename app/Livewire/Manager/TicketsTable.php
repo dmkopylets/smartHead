@@ -14,6 +14,15 @@ class TicketsTable extends DataTableComponent
 {
     protected $model = Ticket::class;
 
+    protected $listeners = [
+        'ticketUpdated' => '$refresh',
+    ];
+
+    public function query()
+    {
+        return Ticket::query()->with('customer');
+    }
+
     public function configure(): void
     {
         $this->setPrimaryKey('id');
