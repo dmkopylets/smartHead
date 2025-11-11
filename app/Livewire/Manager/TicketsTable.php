@@ -9,6 +9,8 @@ use App\Models\Ticket;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\View;
 
 class TicketsTable extends DataTableComponent
 {
@@ -16,9 +18,10 @@ class TicketsTable extends DataTableComponent
 
     protected $listeners = [
         'ticketUpdated' => '$refresh',
+        'deleteTicket' => 'deleteTicket',
     ];
 
-    public function query()
+    public function query(): Builder
     {
         return Ticket::query()->with('customer');
     }
@@ -36,21 +39,24 @@ class TicketsTable extends DataTableComponent
         return [
             Column::make('ID', 'id')->sortable()->searchable(),
             Column::make('Customer', 'customer_id')
-                ->format(fn($value, $row) => optional($row->customer)->name ?? '—')
+                ->format(fn ($value, $row) => optional($row->customer)->name ?? '—')
                 ->sortable(),
             Column::make('Subject', 'subject')->sortable()->searchable(),
             Column::make('Message', 'message')
-                ->format(fn($value) => Str::limit($value, 50)),
+                ->format(fn ($value) => Str::limit($value, 50)),
             Column::make('Status', 'status')->sortable(),
             Column::make('Manager replied at', 'manager_replied_at')
-                ->format(fn($value) => $value
+                ->format(
+                    fn ($value) => $value
                     ? Carbon::parse($value)->format('d.m.Y H:i')
                     : '-'
                 )
                 ->sortable(),
             Column::make('Actions')
-                ->label(fn($row) => view('dashboard.manager.partials.actions', compact('row')))
-                ->html(),
+                ->label(
+                    fn ($row) => view('dashboard.manager.tickets.actions', ['ticket' => $row])->render()
+                )
+                    ->html(),
         ];
     }
 
@@ -61,11 +67,10 @@ class TicketsTable extends DataTableComponent
                 ->options([
                     '' => 'All',
                     'new' => 'New',
-                    'in_process' => 'in process',
-                    'оброблений' => 'Оброблений',
+                    'in_process' => 'in Process',
+                    'processed' => 'Processed',
                 ])
-                ->filter(fn($query, $value) => $query->where('status', $value)),
+                ->filter(fn ($query, $value) => $query->where('status', $value)),
         ];
     }
-
 }

@@ -15,7 +15,7 @@ class TicketForm extends Component
     public $mode = 'create';
 
     protected $listeners = [
-        'open-ticket-modal' => 'openModal'
+        'open-ticket-modal' => 'open'
     ];
 
     protected $rules = [
@@ -60,6 +60,13 @@ class TicketForm extends Component
         $this->dispatch('ticketUpdated');
         $this->dispatch('ts-dialog-close', name: 'ticket-modal');
         $this->dispatch('ts-notify', title: 'Ticket saved', type: 'success');
+    }
+
+    public function deleteTicket($id)
+    {
+        Ticket::findOrFail($id)->delete();
+        $this->dispatch('ts-notify', title: 'Ticket deleted', type: 'danger');
+        $this->emit('ticketUpdated');
     }
 
     public function render()

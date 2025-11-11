@@ -63,12 +63,12 @@
                 </div>
             </x-slot:brand>
 
-            <x-ts-side-bar.item text="Dashboard" icon="home" :route="route('manager.dashboard')" />
+            <x-ts-side-bar.item text="Dashboard" icon="home" :route="route('admin.dashboard')" />
             <x-ts-side-bar.item text="Home Page" icon="arrow-uturn-left" :route="route('home')" />
             <x-ts-side-bar.item
-                    text="Tickets"
-                    icon="ticket"
-                    :route="route('manager.tickets.index')"
+                    text="Customers"
+                    icon="users"
+                    :route="route('admin.customers.index')"
             />
         </x-ts-side-bar>
     </x-slot:menu>
