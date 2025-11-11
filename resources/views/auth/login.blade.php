@@ -28,7 +28,7 @@
                         type="submit"
                         icon="arrow-right-on-rectangle"
                         color="primary"
-                        label="Увійти"
+                        label="Log in"
                 />
             </div>
 

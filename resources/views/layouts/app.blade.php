@@ -5,14 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'smartHead') }}</title>
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-    {{-- ✅ Підключення скриптів TallStackUI --}}
-    <x-ts-script />
-
+    <tallstackui:script />
     {{-- Livewire & Vite --}}
     @livewireStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -25,13 +23,13 @@
       x-bind:class="{ 'dark bg-gray-800': darkTheme, 'bg-gray-100': !darkTheme }">
 
 <x-ts-layout>
-    {{-- 🔝 Top slot --}}
+    {{-- Top slot --}}
     <x-slot:top>
         <x-ts-dialog />
         <x-ts-toast />
     </x-slot:top>
 
-    {{-- 🧭 Header --}}
+    {{-- Header --}}
     <x-slot:header>
         <x-ts-layout.header>
             <x-slot:left>
@@ -48,7 +46,7 @@
 
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <x-ts-dropdown.items :text="__('Profile')" :href="route('user.profile')" />
+{{--                        <x-ts-dropdown.items :text="__('Profile')" :href="route('user.profile')" />--}}
                         <x-ts-dropdown.items :text="__('Logout')" onclick="event.preventDefault(); this.closest('form').submit();" separator />
                     </form>
                 </x-ts-dropdown>
@@ -65,14 +63,14 @@
                 </div>
             </x-slot:brand>
 
-            <x-ts-side-bar.item text="Dashboard" icon="home" :route="route('dashboard')" />
-            <x-ts-side-bar.item text="Users" icon="users" :route="route('users.index')" />
-            <x-ts-side-bar.item text="Welcome Page" icon="arrow-uturn-left" :route="route('welcome')" />
+            <x-ts-side-bar.item text="Dashboard" icon="home" :route="route('manager.dashboard')" />
+{{--            <x-ts-side-bar.item text="Users" icon="users" :route="route('users.index')" />--}}
+            <x-ts-side-bar.item text="Home Page" icon="arrow-uturn-left" :route="route('home')" />
         </x-ts-side-bar>
     </x-slot:menu>
 
-    {{-- 🧱 Main content --}}
-    {{ $slot }}
+    {{-- Main content --}}
+    @yield('content')
 </x-ts-layout>
 
 @livewireScripts

@@ -30,3 +30,4 @@ Thumbs.db
 Makefile
 docker-compose.yml
 .php-cs-fixer.cache
+ide.json

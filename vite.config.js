@@ -2,7 +2,6 @@ import { defineConfig } from 'vite'
 import laravel from 'laravel-vite-plugin'
 import tailwindcss from '@tailwindcss/vite'
 
-// ✅ Повна підтримка TallStackUI, Livewire, Tailwind і Blade-refresh
 export default defineConfig({
     plugins: [
         laravel({
@@ -10,19 +9,23 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/js/app.js',
             ],
-            refresh: [
-                'resources/views/**/*.blade.php',
-                'app/Http/Livewire/**/*.php',
-                'resources/js/**/*.js',
-            ],
+            refresh: true,
+            // refresh: [
+            //     'resources/views/**/*.blade.php',
+            //     'app/Http/Livewire/**/*.php',
+            //     'resources/js/**/*.js',
+            //     'vendor/tallstackui/tallstackui/src/resources/views/**/*.blade.php',
+            // ],
+            buildDirectory: 'build',
         }),
         tailwindcss(),
     ],
 
     build: {
         outDir: 'public/build',
-        manifest: true,
+        manifest: 'manifest.json',
         emptyOutDir: true,
+        assetsDir: '',
     },
 
     server: {
