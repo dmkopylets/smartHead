@@ -6,7 +6,7 @@
         {{-- 🔹 Header --}}
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-semibold text-gray-800 dark:text-gray-200">
-                🎟️ Tickets Management
+                Tickets Management
             </h1>
 
             {{-- кнопка створення нового тікету з текстом і іконкою --}}

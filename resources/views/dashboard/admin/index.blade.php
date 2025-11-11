@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-ts-app-layout>
     <x-card header="Welcome to the TallStackUI Starter Kit">
         <div class="space-y-2">
             <p>
@@ -29,4 +29,4 @@
             </span>
         </x-slot:footer>
     </x-card>
-</x-app-layout>
+</x-ts-app-layout>

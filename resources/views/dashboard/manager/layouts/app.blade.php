@@ -68,7 +68,7 @@
             <x-ts-side-bar.item
                     text="Tickets"
                     icon="ticket"
-                    :route="route('manager.tickets')"
+                    :route="route('manager.tickets.index')"
             />
             {{--            <x-ts-side-bar.item text="Customers" icon="users" :route="route('users.index')" />--}}
         </x-ts-side-bar>
