@@ -11,7 +11,6 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
     <tallstackui:script />
-    {{-- Livewire & Vite --}}
     @livewireStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -54,7 +53,7 @@
         </x-ts-layout.header>
     </x-slot:header>
 
-    {{-- 📋 Sidebar --}}
+    {{-- Sidebar --}}
     <x-slot:menu>
         <x-ts-side-bar smart collapsible>
             <x-slot:brand>

@@ -79,6 +79,7 @@ class TicketsTable extends DataTableComponent
 
     public function edit($id): void
     {
+//        \Log::info('TicketsTable::edit called', ['id' => $id]);
         $this->dispatch('open-ticket-modal', ['ticketId' => $id]);
     }
 

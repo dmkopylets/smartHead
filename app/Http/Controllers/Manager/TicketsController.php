@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\TicketStoreRequest;
 use App\Models\Customer;
 use App\Models\Ticket;
+use App\Support\Validation\TicketRules;
 use Illuminate\Http\Request;
 
 class TicketsController extends Controller
@@ -20,33 +20,20 @@ class TicketsController extends Controller
         return view('dashboard.manager.tickets.index', compact('customers'));
     }
 
-    public function create()
+     public function edit(Ticket $ticket)
     {
-        $ticket = new Ticket();
-        return view('dashboard.manager.tickets.create', compact('ticket'));
-    }
-
-    public function edit(Ticket $ticket)
-    {
-        return view('dashboard.manager.tickets.edit', compact('ticket'));
-    }
-
-    public function update(TicketStoreRequest $request, Ticket $ticket)
-    {
-        $ticket->fill($request->all())->save();
-
         $customers = Customer::asOptions();
 
-        return view('dashboard.manager.tickets.index', compact('customers'));
+        return view('dashboard.manager.tickets.edit', compact('ticket', 'customers'));
     }
 
-    public function store(TicketStoreRequest $request)
+    public function update(Request $request, Ticket $ticket)
     {
-        Ticket::create($request->validated());
+        $validated = $request->validate(TicketRules::manager());
+        $ticket->update($validated);
 
-        $customers = Customer::asOptions();
-
-        return view('dashboard.manager.tickets.index', compact('customers'))
-            ->with('success', "Created Successfully");
+        return redirect()
+            ->route('manager.tickets.index')
+            ->with('success', "Ticket #{$ticket->id} updated successfully.");
     }
 }
