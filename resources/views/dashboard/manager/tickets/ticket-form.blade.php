@@ -1,9 +1,14 @@
 <div class="space-y-4 p-4 w-full max-w-lg">
-    <h2 class="text-lg font-semibold">{{ $mode === 'create' ? 'Create Ticket' : 'Edit Ticket' }}</h2>
+    <h2 class="text-lg font-semibold">
+        Edit Ticket
+    </h2>
 
     <form wire:submit.prevent="save" class="space-y-4">
-        <x-ts-input label="Status" type="select" wire:model.defer="customer_id">
-            <option value={{$customer_id}} >"$customers->pluck('name', 'id')"</option>
+
+        <x-ts-input label="Customer" type="select" wire:model.defer="customer_id">
+            @foreach($customers as $id => $name)
+                <option value="{{ $id }}" @selected($id == $customer_id)>{{ $name }}</option>
+            @endforeach
         </x-ts-input>
 
         <x-ts-input

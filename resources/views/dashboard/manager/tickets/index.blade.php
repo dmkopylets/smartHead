@@ -7,22 +7,14 @@
             <h1 class="text-2xl font-semibold text-gray-800 dark:text-gray-200">
                 Tickets Management
             </h1>
-
-            <x-ts-button
-                    icon="plus-circle"
-                    color="primary"
-                    label="Create Ticket"
-                    size="md"
-                    x-on:click="$dispatch('open-ticket-modal', { mode: 'create' })" />
         </div>
 
         <div class="overflow-x-auto w-full">
             <livewire:manager.tickets-table />
         </div>
 
-        {{--  Модалка створення/редагування --}}
         <x-ts-dialog name="ticket-modal">
-            <livewire:manager.ticket-form />
+            <livewire:dashboard.manager.tickets.ticket-form />
         </x-ts-dialog>
     </div>
 @endsection

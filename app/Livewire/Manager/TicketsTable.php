@@ -32,6 +32,9 @@ class TicketsTable extends DataTableComponent
         $this->setTableWrapperAttributes([
             'class' => 'overflow-hidden rounded-xl shadow',
         ]);
+        $this->setTableAttributes([
+            'class' => 'min-w-full divide-y divide-gray-200 dark:divide-gray-700 overflow-x-auto'
+        ]);
     }
 
     public function columns(): array
@@ -72,5 +75,20 @@ class TicketsTable extends DataTableComponent
                 ])
                 ->filter(fn ($query, $value) => $query->where('status', $value)),
         ];
+    }
+
+    public function edit($id): void
+    {
+        $this->dispatch('open-ticket-modal', ['ticketId' => $id]);
+    }
+
+    public function delete($id): void
+    {
+        $ticket = Ticket::find($id);
+
+        if ($ticket) {
+            $ticket->delete();
+            $this->dispatch('ts-notify', title: 'Ticket deleted', type: 'success');
+        }
     }
 }

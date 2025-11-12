@@ -11,38 +11,36 @@ class TicketForm extends Component
     public $customer_id;
     public $subject;
     public $message;
-    public $status = 'new';
-    public $mode = 'create';
+    public $status = 'processed';
+    public $mode = 'edit';
+    public $customers = [];
 
     protected $listeners = [
-        'open-ticket-modal' => 'open'
+        'open-ticket-modal' => 'openModal'
     ];
 
-    protected $rules = [
-        'customer_id' => 'required|exists:users,id',
-        'subject' => 'required|string|max:255',
-        'message' => 'nullable|string',
-        'status' => 'required|in:new, in_progress, processed',
-    ];
+    protected $rules = [];
 
-    public function open($data)
+    public function mount()
+    {
+        $this->customers = \App\Models\Customer::pluck('name', 'id')->toArray();
+        $this->rules = TicketRules::manager();
+    }
+
+    public function openModal($data)
     {
         $this->resetErrorBag();
         $this->resetValidation();
 
-        $this->mode = $data['mode'];
-
-        if ($this->mode === 'edit' && isset($data['ticketId'])) {
+        if (isset($data['ticketId'])) {
             $ticket = Ticket::findOrFail($data['ticketId']);
             $this->ticketId = $ticket->id;
             $this->customer_id = $ticket->customer_id;
             $this->subject = $ticket->subject;
             $this->message = $ticket->message;
             $this->status = $ticket->status;
-        } else {
-            $this->reset(['ticketId', 'customer_id', 'subject', 'message', 'status']);
-            $this->status = 'new';
         }
+        $this->dispatch('ts-dialog-open', name: 'ticket-modal');
     }
 
     public function save()
@@ -71,6 +69,6 @@ class TicketForm extends Component
 
     public function render()
     {
-        return view('livewire.manager.ticket-form');
+        return view('dashboard.manager.tickets.ticket-form');
     }
 }
