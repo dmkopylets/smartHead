@@ -1,0 +1,129 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Laravel Swagger API documentation for test task",
+        "contact": {
+            "name": "Dmytro",
+            "email": "dm.kopylets@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/tickets": {
+            "post": {
+                "tags": [
+                    "Tickets"
+                ],
+                "summary": "Create a new ticket",
+                "operationId": "createTicket",
+                "requestBody": {
+                    "description": "Ticket data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "phone",
+                                    "email",
+                                    "subject",
+                                    "message"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "Customer's full name",
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "John Doe"
+                                    },
+                                    "phone": {
+                                        "description": "Phone number in E.164 format",
+                                        "type": "string",
+                                        "pattern": "^\\+[1-9]\\d{6,14}$",
+                                        "example": "+380991234567"
+                                    },
+                                    "email": {
+                                        "description": "Customer's email address",
+                                        "type": "string",
+                                        "format": "email",
+                                        "maxLength": 255,
+                                        "example": "john.doe@example.com"
+                                    },
+                                    "subject": {
+                                        "description": "Ticket subject or short title",
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "Problem with my order"
+                                    },
+                                    "message": {
+                                        "description": "Detailed message from the customer",
+                                        "type": "string",
+                                        "maxLength": 5000,
+                                        "example": "I have an issue with order #1234. The package hasn’t arrived yet."
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Ticket successfully created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Application successfully created!"
+                                        },
+                                        "data": {
+                                            "description": "Created ticket data",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "phone": [
+                                                    "The phone format is invalid."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Tickets",
+            "description": "Tickets"
+        }
+    ]
+}
