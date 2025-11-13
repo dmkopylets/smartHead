@@ -9,6 +9,7 @@ class TicketFactory extends Factory
     public function definition(): array
     {
         return [
+            'customer_id' => \App\Models\Customer::factory(),
             'subject' => $this->faker->sentence(6),
             'message' => $this->faker->paragraph(3),
             'status' => $this->faker->randomElement(['new', 'in_progress', 'processed']),

@@ -118,6 +118,74 @@
                     }
                 }
             }
+        },
+        "/api/tickets/statistics": {
+            "get": {
+                "tags": [
+                    "Tickets"
+                ],
+                "summary": "Get ticket statistics",
+                "description": "Returns aggregated ticket statistics for the current day, week, and month.",
+                "operationId": "getTicketStatistics",
+                "responses": {
+                    "200": {
+                        "description": "Successful statistics retrieval",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "daily": {
+                                                    "description": "Number of tickets created in the last 24 hours",
+                                                    "type": "integer",
+                                                    "example": 12
+                                                },
+                                                "weekly": {
+                                                    "description": "Number of tickets created in the last 7 days",
+                                                    "type": "integer",
+                                                    "example": 54
+                                                },
+                                                "monthly": {
+                                                    "description": "Number of tickets created in the last 30 days",
+                                                    "type": "integer",
+                                                    "example": 230
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unable to fetch ticket statistics."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "tags": [

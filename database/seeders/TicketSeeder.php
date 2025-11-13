@@ -9,9 +9,6 @@ use App\Models\Customer;
 
 class TicketSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         $customers = Customer::all();
@@ -26,5 +23,23 @@ class TicketSeeder extends Seeder
                 'customer_id' => $customer->id,
             ]);
         }
+
+        $customer = $customers->random();
+
+        // Емуляція трьох періодів
+        Ticket::factory()->count(3)->create([
+            'customer_id' => $customer->id,
+            'created_at' => now(),
+        ]);
+
+        Ticket::factory()->count(5)->create([
+            'customer_id' => $customer->id,
+            'created_at' => now()->subDays(3),
+        ]);
+
+        Ticket::factory()->count(10)->create([
+            'customer_id' => $customer->id,
+            'created_at' => now()->subDays(20),
+        ]);
     }
 }
