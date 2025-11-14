@@ -5,7 +5,7 @@
 
         <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4 mt-8">
 
-            <a href="{{ route('manager.dashboard') }}" class="px-6 py-3 rounded-lg font-semibold transition bg-blue-500 hover:bg-blue-600 text-white shadow-md">
+            <a href="{{ dashboard_route() }}" class="px-6 py-3 rounded-lg font-semibold transition bg-blue-500 hover:bg-blue-600 text-white shadow-md">
                 back to Home page
             </a>
 

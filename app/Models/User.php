@@ -47,4 +47,18 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function dashboardRoute(): string
+    {
+        if ($this->hasRole('admin')) {
+            return route('admin.dashboard');
+        }
+
+        if ($this->hasRole('manager')) {
+            return route('manager.dashboard');
+        }
+
+        // fallback route
+        return route('home');
+    }
 }

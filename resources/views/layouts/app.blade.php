@@ -30,44 +30,10 @@
     </x-slot:top>
 
     {{-- Header --}}
-    <x-slot:header>
-        <x-ts-layout.header>
-            <x-slot:left>
-                <x-ts-theme-switch />
-            </x-slot:left>
+   @include('layouts.header')
 
-            <x-slot:right>
-                <x-ts-dropdown>
-                    <x-slot:action>
-                        <button class="cursor-pointer" x-on:click="show = !show">
-                            <span class="text-base font-semibold text-primary-500" x-text="name"></span>
-                        </button>
-                    </x-slot:action>
-
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-{{--                        <x-ts-dropdown.items :text="__('Profile')" :href="route('user.profile')" />--}}
-                        <x-ts-dropdown.items :text="__('Logout')" onclick="event.preventDefault(); this.closest('form').submit();" separator />
-                    </form>
-                </x-ts-dropdown>
-            </x-slot:right>
-        </x-ts-layout.header>
-    </x-slot:header>
-
-    {{-- 📋 Sidebar --}}
-    <x-slot:menu>
-        <x-ts-side-bar smart collapsible>
-            <x-slot:brand>
-                <div class="mt-8 flex items-center justify-center">
-                    <img src="{{ asset('/assets/images/tsui.png') }}" width="40" height="40" alt="Logo" />
-                </div>
-            </x-slot:brand>
-
-            <x-ts-side-bar.item text="Dashboard" icon="home" :route="route('manager.dashboard')" />
-{{--            <x-ts-side-bar.item text="Users" icon="users" :route="route('users.index')" />--}}
-            <x-ts-side-bar.item text="Home Page" icon="arrow-uturn-left" :route="route('home')" />
-        </x-ts-side-bar>
-    </x-slot:menu>
+    {{-- Sidebar --}}
+    @include('layouts.sidebar')
 
     {{-- Main content --}}
     @yield('content')
